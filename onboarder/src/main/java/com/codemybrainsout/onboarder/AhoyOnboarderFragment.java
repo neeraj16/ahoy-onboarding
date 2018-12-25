@@ -2,6 +2,7 @@ package com.codemybrainsout.onboarder;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Build;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
@@ -146,7 +147,11 @@ public class AhoyOnboarderFragment extends Fragment {
         }
 
         if (imageResId != 0) {
-            ivOnboarderImage.setImageDrawable(ContextCompat.getDrawable(getActivity(), imageResId));
+            if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+                ivOnboarderImage.setImageDrawabl(VectorDrawableCompat.create(getActivity().getResources(), imageResId, getActivity().getTheme()));
+            } else {
+                ivOnboarderImage.setImageDrawable(ContextCompat.getDrawable(getActivity(), imageResId));
+            }
         }
 
         if (titleTextSize != 0f) {
